@@ -65,7 +65,7 @@ public class Main extends javax.swing.JFrame {
         jCheckBoxNegativos = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Tablas Matemáticas");
+        setTitle("Tablas Matemáticas.");
         setLocation(new java.awt.Point(0, 0));
         setLocationByPlatform(true);
 
