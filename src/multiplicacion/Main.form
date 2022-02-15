@@ -35,6 +35,17 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jLabelFaltan" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="96" pref="215" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                              <Component id="jLabelNumFallos" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jTextFieldResultado" min="-2" pref="105" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="128" max="-2" attributes="0"/>
+                  </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="0" groupAlignment="1" attributes="0">
@@ -43,6 +54,7 @@
                               <Component id="jLabel3" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jLabelNumFallosPermitidos" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -61,23 +73,13 @@
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jComboBoxOperacion" min="-2" max="-2" attributes="0"/>
                                   <Component id="jTextFieldNumFallosPermitidos" min="-2" pref="90" max="-2" attributes="0"/>
                                   <Component id="jTextFieldTimeout" min="-2" pref="90" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="96" pref="215" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                              <Component id="jLabelNumFallos" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="jTextFieldResultado" min="-2" pref="105" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="128" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -107,7 +109,12 @@
                   <Component id="jLabelNumFallosPermitidos" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTextFieldNumFallosPermitidos" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="81" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jComboBoxOperacion" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="28" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabelPrueba" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTextFieldResultado" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -205,6 +212,27 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Operaci&#xf3;n:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="jComboBoxOperacion">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Sumar"/>
+            <StringItem index="1" value="Restar"/>
+            <StringItem index="2" value="Multiplicar"/>
+            <StringItem index="3" value="Dividir"/>
+          </StringArray>
+        </Property>
+        <Property name="selectedIndex" type="int" value="2"/>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

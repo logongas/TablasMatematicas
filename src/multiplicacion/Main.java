@@ -29,6 +29,7 @@ public class Main extends javax.swing.JFrame {
     int numFallosPermitidos;
     int numFallos;
     Timer timer = null;
+    Operacion operacion;
 
     /**
      * Creates new form Main
@@ -59,6 +60,8 @@ public class Main extends javax.swing.JFrame {
         jLabelNumFallosPermitidos = new javax.swing.JLabel();
         jTextFieldNumFallosPermitidos = new javax.swing.JTextField();
         jLabelNumFallos = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBoxOperacion = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tablas de multiplicar");
@@ -114,6 +117,11 @@ public class Main extends javax.swing.JFrame {
 
         jLabelNumFallos.setText("0");
 
+        jLabel4.setText("Operación:");
+
+        jComboBoxOperacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sumar", "Restar", "Multiplicar", "Dividir" }));
+        jComboBoxOperacion.setSelectedIndex(2);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -124,13 +132,22 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(jLabelPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabelFaltan))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(96, 215, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabelNumFallos))
+                            .addComponent(jTextFieldResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(128, 128, 128))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel2)
                                 .addComponent(jLabel1)
                                 .addComponent(jLabel3))
-                            .addComponent(jLabelNumFallosPermitidos))
+                            .addComponent(jLabelNumFallosPermitidos)
+                            .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -144,17 +161,10 @@ public class Main extends javax.swing.JFrame {
                                 .addComponent(jButtonEmpezar))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBoxOperacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextFieldNumFallosPermitidos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextFieldTimeout, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(96, 215, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(jLabelNumFallos))
-                            .addComponent(jTextFieldResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(128, 128, 128)))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -176,7 +186,11 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNumFallosPermitidos)
                     .addComponent(jTextFieldNumFallosPermitidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxOperacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelPrueba)
                     .addComponent(jTextFieldResultado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -193,6 +207,7 @@ public class Main extends javax.swing.JFrame {
         numRepeticiones = Integer.parseInt(jTextFieldNumRepeticiones.getText());
         tablas = jTextFieldTablas.getText();
         timeout = Integer.parseInt(jTextFieldTimeout.getText());
+        operacion=Operacion.valueOf(jComboBoxOperacion.getSelectedItem().toString());
 
         if (timer != null) {
             timer.cancel();
@@ -213,7 +228,7 @@ public class Main extends javax.swing.JFrame {
             int tabla = Integer.parseInt(stringtablas.get(i));
 
             for (int j = 2; j <= 9; j++) {
-                pruebas.add(new Prueba(tabla, j, 0));
+                pruebas.add(operacion.getPrueba(tabla, j));
             }
         }
 
@@ -265,7 +280,7 @@ public class Main extends javax.swing.JFrame {
 
     private void pintarPrueba(Prueba prueba) {
 
-        jLabelPrueba.setText(prueba.a + "x" + prueba.b + "=");
+        jLabelPrueba.setText(prueba.a + operacion.getSimbolo() + prueba.b + "=");
         jTextFieldResultado.setText("");
         jTextFieldResultado.requestFocus();
         jLabelFaltan.setText("" + faltanPruebas());
@@ -316,7 +331,7 @@ public class Main extends javax.swing.JFrame {
         } catch (NumberFormatException ex) {
             resultadoAlumno = 0;
         }
-        int resultadoReal = pruebaActual.a * pruebaActual.b;
+        int resultadoReal = operacion.calcular(pruebaActual.a , pruebaActual.b);
         if (resultadoAlumno != resultadoReal) {
             java.awt.Toolkit.getDefaultToolkit().beep();
             JOptionPane.showMessageDialog(this, jLabelPrueba.getText() + resultadoReal + "\n\nPero tu habías puesto:" + jTextFieldResultado.getText());
@@ -390,9 +405,11 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonEmpezar;
+    private javax.swing.JComboBox<String> jComboBoxOperacion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelFaltan;
     private javax.swing.JLabel jLabelNumFallos;
     private javax.swing.JLabel jLabelNumFallosPermitidos;
