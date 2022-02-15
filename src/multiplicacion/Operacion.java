@@ -14,7 +14,8 @@ public enum Operacion {
     Sumar("+"),
     Restar("-"),
     Multiplicar("x"),
-    Dividir("÷");
+    Dividir("÷"),
+    RestarNegativos("-");
     
     String simbolo;
     
@@ -36,6 +37,37 @@ public enum Operacion {
                 return a*b;
             case Dividir:
                 return a/b; 
+            case RestarNegativos:
+                return a-b;                 
+            default:
+                throw new RuntimeException("Operacion desconocida:" + this);
+        }
+    }
+    
+    public String getTextPrueba(int a, int b) {    
+        switch (this) {
+            case Sumar:
+                if (b>=0) {
+                    return a+simbolo+b;
+                } else {
+                    return a+simbolo+"("+b+")";
+                }
+            case Restar:
+                if (b>=0) {
+                    return a+simbolo+b;
+                } else {
+                    return a+simbolo+"("+b+")";
+                }
+            case Multiplicar:
+                return a+simbolo+b;
+            case Dividir:
+                return a+simbolo+b;
+            case RestarNegativos:
+                if (b>=0) {
+                    return a+simbolo+b;
+                } else {
+                    return a+simbolo+"("+b+")";
+                }                 
             default:
                 throw new RuntimeException("Operacion desconocida:" + this);
         }
@@ -61,6 +93,10 @@ public enum Operacion {
                 realA=a*b;
                 realB=b;
                 break; 
+            case RestarNegativos:
+                realA=a;
+                realB=b;
+                break;                 
             default:
                 throw new RuntimeException("Operacion desconocida:" + this);
         }

@@ -62,6 +62,7 @@ public class Main extends javax.swing.JFrame {
         jLabelNumFallos = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jComboBoxOperacion = new javax.swing.JComboBox<>();
+        jCheckBoxNegativos = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tablas de multiplicar");
@@ -119,8 +120,10 @@ public class Main extends javax.swing.JFrame {
 
         jLabel4.setText("Operación:");
 
-        jComboBoxOperacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sumar", "Restar", "Multiplicar", "Dividir" }));
+        jComboBoxOperacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sumar", "Restar", "Multiplicar", "Dividir", "RestarNegativos" }));
         jComboBoxOperacion.setSelectedIndex(2);
+
+        jCheckBoxNegativos.setText("Incluir negativos");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,17 +132,15 @@ public class Main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelPrueba, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabelFaltan))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(96, 215, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(jLabelNumFallos))
-                            .addComponent(jTextFieldResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(128, 128, 128))
+                        .addGap(108, 227, Short.MAX_VALUE)
+                        .addComponent(jLabelNumFallos)
+                        .addGap(213, 213, 213))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -163,7 +164,8 @@ public class Main extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jComboBoxOperacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextFieldNumFallosPermitidos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextFieldTimeout, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jTextFieldTimeout, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jCheckBoxNegativos))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
@@ -190,7 +192,9 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jComboBoxOperacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jCheckBoxNegativos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelPrueba)
                     .addComponent(jTextFieldResultado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -206,7 +210,7 @@ public class Main extends javax.swing.JFrame {
     private void jButtonEmpezarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEmpezarActionPerformed
         numRepeticiones = Integer.parseInt(jTextFieldNumRepeticiones.getText());
         tablas = jTextFieldTablas.getText();
-        timeout = Integer.parseInt(jTextFieldTimeout.getText());
+        timeout = nInt(jTextFieldTimeout.getText());
         operacion=Operacion.valueOf(jComboBoxOperacion.getSelectedItem().toString());
 
         if (timer != null) {
@@ -227,9 +231,23 @@ public class Main extends javax.swing.JFrame {
         for (int i = 0; i < stringtablas.size(); i++) {
             int tabla = Integer.parseInt(stringtablas.get(i));
 
+
             for (int j = 2; j <= 9; j++) {
                 pruebas.add(operacion.getPrueba(tabla, j));
             }
+
+            if (jCheckBoxNegativos.isSelected()==true) {
+                for (int j = 2; j <= 9; j++) {
+                    pruebas.add(operacion.getPrueba(tabla, -j));
+                }
+                for (int j = 2; j <= 9; j++) {
+                    pruebas.add(operacion.getPrueba(-tabla, j));
+                }
+                for (int j = 2; j <= 9; j++) {
+                    pruebas.add(operacion.getPrueba(-tabla, -j));
+                }                
+            }
+            
         }
 
         pruebaActual = elegirPrueba();
@@ -242,6 +260,17 @@ public class Main extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonEmpezarActionPerformed
 
+    private int nInt(String sInt) {
+        if (sInt==null) {
+            return 0;
+        }else if (sInt.trim().equals("")) {
+            return 0;
+        } else {
+            return Integer.parseInt(jTextFieldTimeout.getText());
+        }
+            
+    }
+    
     private void jTextFieldResultadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldResultadoKeyPressed
         if (pruebaActual == null) {
             return;
@@ -280,7 +309,7 @@ public class Main extends javax.swing.JFrame {
 
     private void pintarPrueba(Prueba prueba) {
 
-        jLabelPrueba.setText(prueba.a + operacion.getSimbolo() + prueba.b + "=");
+        jLabelPrueba.setText(operacion.getTextPrueba(prueba.a , prueba.b) + "=");
         jTextFieldResultado.setText("");
         jTextFieldResultado.requestFocus();
         jLabelFaltan.setText("" + faltanPruebas());
@@ -405,6 +434,7 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonEmpezar;
+    private javax.swing.JCheckBox jCheckBoxNegativos;
     private javax.swing.JComboBox<String> jComboBoxOperacion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
