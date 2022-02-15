@@ -276,7 +276,10 @@ public class Main extends javax.swing.JFrame {
             return;
         }
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            resolverPrueba();
+            
+            if (isNumber(jTextFieldResultado.getText())==true) {
+                resolverPrueba();
+            }
         }
     }//GEN-LAST:event_jTextFieldResultadoKeyPressed
 
@@ -395,6 +398,16 @@ public class Main extends javax.swing.JFrame {
     private void incNumFallos() {
         numFallos++;
         jLabelNumFallos.setText(numFallos + "");
+    }
+    
+    
+    private boolean isNumber(String text) {
+        try {
+            Integer.parseInt(text);
+            return true;
+        } catch (NumberFormatException ex) {
+            return false;
+        }        
     }
 
     /**
