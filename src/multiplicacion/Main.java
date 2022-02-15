@@ -210,7 +210,7 @@ public class Main extends javax.swing.JFrame {
     private void jButtonEmpezarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEmpezarActionPerformed
         numRepeticiones = Integer.parseInt(jTextFieldNumRepeticiones.getText());
         tablas = jTextFieldTablas.getText();
-        timeout = nInt(jTextFieldTimeout.getText());
+        timeout = Math.abs(nInt(jTextFieldTimeout.getText()));
         operacion=Operacion.valueOf(jComboBoxOperacion.getSelectedItem().toString());
 
         if (timer != null) {
